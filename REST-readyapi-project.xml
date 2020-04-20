@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="f994d10f-8b62-4934-bfb1-d4c67e0755c5" created="3.2.0" activeEnvironment="Default environment" name="REST" resourceRoot="${projectDir}" updated="3.2.0 2020-04-06T18:44:59Z" encryptionMode="Not encrypted" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="f994d10f-8b62-4934-bfb1-d4c67e0755c5fileName">REST</con:setting>
+  </con:settings>
+  <con:testSuite id="e9f4c8f4-09ba-4898-83b1-3721a491786d" name="RESTsuite">
+    <con:settings>
+      <con:setting id="e9f4c8f4-09ba-4898-83b1-3721a491786dfileName">RESTsuite</con:setting>
+    </con:settings>
+    <con:savedRecentRuns>1</con:savedRecentRuns>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase id="4e0df485-9e11-4c35-9878-5d55436d3acf" discardOkResults="false" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="RESTcase" searchProperties="true" timeout="0">
+      <con:settings>
+        <con:setting id="4e0df485-9e11-4c35-9878-5d55436d3acffileName">RESTcase</con:setting>
+      </con:settings>
+      <con:savedRecentRuns>1</con:savedRecentRuns>
+      <con:testStep type="httprequest" name="POSTRequest" id="e776e732-34af-499f-99b4-15463d0e98ea">
+        <con:settings/>
+        <con:config method="POST" xsi:type="con:HttpRequest" id="3be4183e-acaf-4093-8915-77a00b1d1e44" name="POSTRequest" postQueryString="false" mediaType="application/json" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:settings>
+            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+          </con:settings>
+          <con:endpoint>http://localhost:9089/rest/profiles</con:endpoint>
+          <con:request>{"name":"${#Project#name}","surName":"${#Project#surname}","birthday":"${#Project#birthdate}","phone":"${#Project#phone}","email":"${#Project#email}","position":"${#Project#position}","projectList":[{"name":"${#Project#projectname1}"},{"name":"${#Project#projectname2}","description": "${#Project#description2}","startDate": "${#Project#startdate2}","endDate": "${#Project#enddate2}"}]}</con:request>
+          <con:assertion type="Valid HTTP Status Codes" id="10b092c4-a7ec-4f82-a0ee-9ba7cbb45e43" name="Valid HTTP Status Codes">
+            <con:settings/>
+            <con:configuration>
+              <codes>200</codes>
+            </con:configuration>
+          </con:assertion>
+          <con:credentials>
+            <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          <con:parameters/>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" id="e8ff0727-d833-4824-81a1-fb96f884a6fb">
+        <con:settings/>
+        <con:config>
+          <script>import groovy.json.JsonSlurper
+
+def response = context.expand( '${POSTRequest#Response}' )
+slurperresponse = new JsonSlurper().parseText(response.replace("Added new profile:",""))
+testRunner.testCase.setPropertyValue('idRest',slurperresponse.id.toString())</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="httprequest" name="GETRequest" id="25b790d4-43ee-4820-a7db-c6d4067fa890">
+        <con:settings/>
+        <con:config method="GET" xsi:type="con:HttpRequest" id="afc559af-be97-44cd-a279-2f7fe7f9b453" name="GETRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:settings>
+            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+          </con:settings>
+          <con:endpoint>http://localhost:9089/rest/profiles</con:endpoint>
+          <con:request/>
+          <con:assertion type="Valid HTTP Status Codes" id="01af962f-5657-4940-be3a-29b6674dd42d" name="Valid HTTP Status Codes">
+            <con:settings/>
+            <con:configuration>
+              <codes>200</codes>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="0d825799-e1c9-43b4-898d-5317405d493b" name="Contains">
+            <con:configuration>
+              <token>${POSTRequest#Request#$['name']}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="e69fb4aa-e055-46dd-8ea9-d1f1ec1108b5" name="Contains 2">
+            <con:configuration>
+              <token>${POSTRequest#Request#$['surName']}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="a81241b5-fb98-4cad-9ac5-ab4437a43526" name="Contains 3">
+            <con:configuration>
+              <token>${POSTRequest#Request#$['birthday']}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="acab1ed2-c351-4dc6-ad51-78ed109c69ce" name="Contains 4">
+            <con:configuration>
+              <token>${POSTRequest#Request#$['phone']}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="3c87de9b-e0cf-40f0-92bb-7d0ea0aad6a6" name="Contains 5">
+            <con:configuration>
+              <token>${POSTRequest#Request#$['email']}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="4be38496-b43d-4904-a1a1-a5b81d43a7b6" name="Contains 6">
+            <con:configuration>
+              <token>${POSTRequest#Request#$['position']}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="c4b1d71d-1b02-4ac5-b11f-2cb3c2f64ec0" name="Contains 7">
+            <con:configuration>
+              <token>${POSTRequest#Request#$['projectList'][0]['name']}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="78c93d97-4492-4661-8b25-983399c3cf40" name="Contains 8">
+            <con:configuration>
+              <token>${POSTRequest#Request#$['projectList'][1]['name']}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="bcc9675f-089d-4f41-8247-a711ef96095b" name="Contains 9">
+            <con:configuration>
+              <token>${POSTRequest#Request#$['projectList'][1]['description']}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="36ce2f57-5c80-42bb-9707-5bbe2e0fa474" name="Contains 10">
+            <con:configuration>
+              <token>"${POSTRequest#RawRequest#$['projectList'][1]['startDate']}"</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="1591c902-a87b-4172-ad4a-db0bf3d9f00f" name="Contains 11">
+            <con:configuration>
+              <token>${POSTRequest#Request#$['projectList'][1]['endDate']}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple Contains" id="d9c430a2-8a29-48f0-9421-fa81689a0ec0" name="Contains 12">
+            <con:configuration>
+              <token>${#TestCase#idRest}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:credentials>
+            <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          <con:parameters/>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="httprequest" name="DELETERequest" id="99a9733f-4bec-4533-8583-85f1db3d24ef">
+        <con:settings/>
+        <con:config method="DELETE" xsi:type="con:HttpRequest" id="c1130ba1-2cf9-48fa-96e6-881c5520cb32" name="DELETERequest" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:settings>
+            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+          </con:settings>
+          <con:endpoint>http://localhost:9089/rest/profiles</con:endpoint>
+          <con:request/>
+          <con:assertion type="Valid HTTP Status Codes" id="652fb1ce-92d2-496d-9729-698985b8595b" name="Valid HTTP Status Codes">
+            <con:settings/>
+            <con:configuration>
+              <codes>200</codes>
+            </con:configuration>
+          </con:assertion>
+          <con:credentials>
+            <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          <con:parameters>
+            <con:parameter>
+              <con:name>id</con:name>
+              <con:value>${GETRequest#Response#$[0]['id']}</con:value>
+              <con:style>QUERY</con:style>
+              <con:default>${GETRequest#Response#$[0]['id']}</con:default>
+              <con:path xsi:nil="true"/>
+              <con:description xsi:nil="true"/>
+            </con:parameter>
+          </con:parameters>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="httprequest" name="GETRequest2" id="d221de33-c676-42d7-80b5-9758ea9f1d88">
+        <con:settings/>
+        <con:config method="GET" xsi:type="con:HttpRequest" id="35742b8f-d288-4a76-83f3-2ad8565f4693" name="GETRequest2" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:settings>
+            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+          </con:settings>
+          <con:endpoint>http://localhost:9089/rest/profiles</con:endpoint>
+          <con:request/>
+          <con:assertion type="Valid HTTP Status Codes" id="e85f91f5-d34a-4301-b09b-e7b810577729" name="Valid HTTP Status Codes">
+            <con:settings/>
+            <con:configuration>
+              <codes>404</codes>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion type="Simple NotContains" id="04aef2d7-a52c-45a5-84ed-0abd2e4f0e68" name="Not Contains">
+            <con:configuration>
+              <token>Profile not found: ${DELETERequest#id}</token>
+              <ignoreCase>true</ignoreCase>
+              <useRegEx>false</useRegEx>
+            </con:configuration>
+          </con:assertion>
+          <con:credentials>
+            <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+            <con:authType>No Authorization</con:authType>
+          </con:credentials>
+          <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          <con:parameters>
+            <con:parameter>
+              <con:name>id</con:name>
+              <con:value>${DELETERequest#id}</con:value>
+              <con:style>QUERY</con:style>
+              <con:default>${DELETERequest#id}</con:default>
+              <con:path xsi:nil="true"/>
+              <con:description xsi:nil="true"/>
+            </con:parameter>
+          </con:parameters>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>idRest</con:name>
+          <con:value>100002</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>99a9733f-4bec-4533-8583-85f1db3d24ef</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:requirements/>
+  <con:properties>
+    <con:property>
+      <con:name>Name</con:name>
+      <con:value>ELCUCO</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Surname</con:name>
+      <con:value>Cuco</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Email</con:name>
+      <con:value>elcuco2019@gmail.com</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Position</con:name>
+      <con:value>Beast</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Phone</con:name>
+      <con:value>+79666666666</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Birthdate</con:name>
+      <con:value>Jan 1, 0001 12:00:00 AM</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Projectname1</con:name>
+      <con:value>Independent entrepreneur</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Projectname2</con:name>
+      <con:value>Hell</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Description2</con:name>
+      <con:value>Геенна.</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Startdate2</con:name>
+      <con:value>Jan 2, 0001 12:00:00 AM</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Enddate2</con:name>
+      <con:value>Jan 1, 2019 12:00:00 AM</con:value>
+    </con:property>
+  </con:properties>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:jmsConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:oAuth1ProfileContainer/>
+  <con:reporting>
+    <con:reportTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+    <con:parameters/>
+  </con:reporting>
+  <con:reporting/>
+  <con:eventHandlers type="RequestFilter.filterRequest" name="RequestFilter.filterRequest">
+    <con:script>// Sample event script to add custom HTTP header to all outgoing REST, SOAP and HTTP(S) calls
+// This code is often used for adding custom authentication to SoapUI Pro tests
+
+// If hardcoding the token, uncomment and change line 5
+// token = '4567'
+
+// If your token is parameterized in Project level custom property, uncomment line 8
+// token = request.parent.testCase.testSuite.project.getProperty('auth_token').getValue()
+
+// To modify all outgoing calls, remove comments from lines 11 to 16
+// headers = request.requestHeaders
+// if (headers.containsKey('auth_token2') == false) {
+//   headers.put('auth_token2', token)
+//   request.requestHeaders = headers
+// }</con:script>
+  </con:eventHandlers>
+  <con:eventHandlers type="TestRunListener.afterStep" name="TestRunListener.afterStep">
+    <con:script>// Save all test step results into files
+// Change the directory path in line 5 to a location where you want to store details
+// then uncomment lines 5 to 10
+
+// filePath = 'C:\\tempOutputDirectory\\'
+// fos = new java.io.FileOutputStream(filePath + testStepResult.testStep.label + '.txt', true)
+// pw = new java.io.PrintWriter(fos)
+// testStepResult.writeTo(pw)
+// pw.close()
+// fos.close()</con:script>
+  </con:eventHandlers>
+  <con:authRepository/>
+  <con:tags/>
+</con:soapui-project>
