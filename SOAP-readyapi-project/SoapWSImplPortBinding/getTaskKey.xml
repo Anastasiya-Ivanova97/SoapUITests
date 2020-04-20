@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:operation id="8acb0eee-6b74-4952-b903-aa3459e2cc59" isOneWay="false" action="" name="getTaskKey" bindingOperationName="getTaskKey" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="8acb0eee-6b74-4952-b903-aa3459e2cc59fileName">getTaskKey</con:setting>
+  </con:settings>
+  <con:call id="4c59a7d0-e868-4c7c-b05e-7968f69d272c" name="Request 1">
+    <con:settings/>
+    <con:encoding>UTF-8</con:encoding>
+    <con:endpoint>http://localhost:9088/wss/profiles</con:endpoint>
+    <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apip="http://apiPractice.aplana.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <apip:getTaskKey/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+    <con:credentials>
+      <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+      <con:authType>No Authorization</con:authType>
+    </con:credentials>
+    <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+    <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://apiPractice.aplana.com/SoapWS/getTaskKeyRequest"/>
+  </con:call>
+</con:operation>

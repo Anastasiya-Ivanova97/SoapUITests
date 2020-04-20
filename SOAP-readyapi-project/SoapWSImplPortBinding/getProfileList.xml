@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:operation id="9a7f647b-6170-4f87-8116-a9a3f71be151" isOneWay="false" action="" name="getProfileList" bindingOperationName="getProfileList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="9a7f647b-6170-4f87-8116-a9a3f71be151fileName">getProfileList</con:setting>
+  </con:settings>
+  <con:call id="d0b74cf0-eaa8-459c-82e3-a3b0851592ce" name="Request 1">
+    <con:settings/>
+    <con:encoding>UTF-8</con:encoding>
+    <con:endpoint>http://localhost:9088/wss/profiles</con:endpoint>
+    <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apip="http://apiPractice.aplana.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <apip:getProfileList/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+    <con:credentials>
+      <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+      <con:authType>No Authorization</con:authType>
+    </con:credentials>
+    <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+    <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://apiPractice.aplana.com/SoapWS/getProfileListRequest"/>
+  </con:call>
+</con:operation>

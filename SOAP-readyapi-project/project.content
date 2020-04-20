@@ -1,0 +1,7 @@
+SoapWSImplPortBinding\addProfile.xml
+SoapWSImplPortBinding\getProfile.xml
+SoapWSImplPortBinding\getProfileList.xml
+SoapWSImplPortBinding\getTaskKey.xml
+SoapWSImplPortBinding\getWelcomeMessage.xml
+SoapWSImplPortBinding\removeProfile.xml
+SOAPTestSuite\SOAPTestCase.xml
